@@ -3,8 +3,11 @@ package com.example.bluetoothconnectivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.example.bluetoothconnectivity.R;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (toggleButton.isChecked()){
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), BLUETOOTH) ==
-                            PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),BLUETOOTH_CONNECT)
-                            == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(),BLUETOOTH_ADMIN)== PackageManager.PERMISSION_GRANTED){
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH) ==
+                            PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.BLUETOOTH_CONNECT)
+                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.BLUETOOTH_ADMIN)== PackageManager.PERMISSION_GRANTED){
                         if (bluetoothAdapter == null){
                             Toast.makeText(getApplicationContext(), "Bluetooth not support to these device", Toast.LENGTH_SHORT).show();
                         }else{
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     else {
-                        ActivityCompat.requestPermissions(MainActivity.this,new String[]{BLUETOOTH,BLUETOOTH_CONNECT,BLUETOOTH_ADMIN},PER_REQ_CODE);
+                        ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_CONNECT,Manifest.permission.BLUETOOTH_ADMIN},PER_REQ_CODE);
 
                     }
                 }
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+   /* public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
         super.onRequestPermissionsResult(requestCode,permissions,grantResults);
 
         if (requestCode == PER_REQ_CODE){
@@ -94,6 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 
 }
